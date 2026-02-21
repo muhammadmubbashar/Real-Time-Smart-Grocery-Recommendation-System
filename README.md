@@ -19,7 +19,10 @@ Follow these step-by-step instructions to run the project:
    ```powershell
    pip install -r requirements.txt
    ```
-
+4. **Problem Statement**
+    - Built an end-to-end grocery recommendation system using the Instacart dataset, formulating next-basket prediction as a multi-label classification and ranking problem.
+    Developed baseline heuristics and logistic regression models, followed by gradient boosting and sequence-based deep learning approaches.
+    Deployed the final model as a real-time FastAPI service with containerised cloud deployment and evaluation using F1 and Precision@K metrics -
 4. **Configure any required settings**
    - Update configuration files or environment variables as needed.
    - See project documentation for details.
