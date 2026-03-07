@@ -1,0 +1,5 @@
+[2026-03-08 01:14:01,918] root - INFO - Initializing Data Ingestion component...
+[2026-03-08 01:14:01,918] root - INFO - Data Ingestion Config: DataIngestionConfig(download_dataset_url='yasserh/instacart-online-grocery-basket-analysis-dataset', raw_data_dir='artifact\\dataset\\raw_data', ingested_dir='artifact\\dataset\\ingested_data')
+[2026-03-08 01:14:01,920] root - INFO - Downloading dataset yasserh/instacart-online-grocery-basket-analysis-dataset from Kaggle
+[2026-03-08 01:16:25,094] root - INFO - Dataset downloaded at C:\Users\Mubashir\.cache\kagglehub\datasets\yasserh\instacart-online-grocery-basket-analysis-dataset\versions\1
+[2026-03-08 01:16:25,367] root - INFO - ====================Data Ingestion log completed.====================

@@ -1,0 +1,12 @@
+artifact_config:
+  artifact_dir: "artifact"
+data_ingestion_config:
+  download_dataset_url: "yasserh/instacart-online-grocery-basket-analysis-dataset"
+  dataset_dir: "dataset"
+  raw_data_dir: "raw_data"
+  ingested_dir: "ingested_data"
+
+
+
+
+

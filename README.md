@@ -9,6 +9,16 @@ Follow these step-by-step instructions to run the project:
    conda create -n Groccery-Store-Recommendation python=3.14
    ```
 
+2. **Workfloe**
+   '''powershell
+   config.yaml
+   entity
+   config/configuration.py
+   components
+   pipeline
+   main.py
+   app.py
+   '''
 
 2. **Activate the conda environment**
    ```powershell
