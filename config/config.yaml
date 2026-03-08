@@ -1,0 +1,20 @@
+artifact_config:
+  artifact_dir: "artifact"
+data_ingestion_config:
+  download_dataset_url: "yasserh/instacart-online-grocery-basket-analysis-dataset"
+  dataset_dir: "dataset"
+  raw_data_dir: "raw_data"
+  ingested_dir: "ingested_data"
+
+
+data_validation_config:
+  order_csv_file: "orders.csv"
+  product_csv_file: "products.csv"
+  order_products_prior_csv_file: "order_products__prior.csv"
+  order_products_train_csv_file: "order_products__train.csv"
+  department_csv_file: "departments.csv"
+  aisles_csv_file: "aisles.csv"
+  clean_data_dir: "clean_data"
+  serialized_objects_dir: "serialized_objects"
+
+
