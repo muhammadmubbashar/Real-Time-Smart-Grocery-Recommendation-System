@@ -3,7 +3,7 @@ import sys
 from Real_Time_Smart_Grocery_Recommendation_System.logger.logger import logging
 from Real_Time_Smart_Grocery_Recommendation_System.exception.exxception_handler import AppException
 from Real_Time_Smart_Grocery_Recommendation_System.utils.utils import read_yaml_file
-from Real_Time_Smart_Grocery_Recommendation_System.entity.config_entity import DataIngestionConfig, DataValidationConfig
+from Real_Time_Smart_Grocery_Recommendation_System.entity.config_entity import DataIngestionConfig, DataValidationConfig, DataTransformationConfig
 from Real_Time_Smart_Grocery_Recommendation_System.constants import *
 
 class AppConfiguration:
@@ -32,7 +32,8 @@ class AppConfiguration:
         try:
             data_validation_config = self.config_info['data_validation_config']
             data_ingestion_config = self.config_info['data_ingestion_config']
-            artifact_dir = self.config_info['artifact_config']['artifact_dir']
+            artifact_config = self.config_info['artifact_config']
+            artifact_dir = artifact_config['artifact_dir']
             dataset_dir = data_ingestion_config['dataset_dir']
 
             # CSV file paths after ingestion
@@ -43,9 +44,11 @@ class AppConfiguration:
             department_csv_file = os.path.join(artifact_dir, dataset_dir, data_ingestion_config["ingested_dir"], data_validation_config['department_csv_file'])
             aisles_csv_file = os.path.join(artifact_dir, dataset_dir, data_ingestion_config["ingested_dir"], data_validation_config['aisles_csv_file'])
 
-            # directories for clean and serialized data
+            # directories for clean data
             clean_data_dir = os.path.join(artifact_dir, dataset_dir, data_validation_config['clean_data_dir'])
-            serialized_objects_dir = os.path.join(artifact_dir, dataset_dir, data_validation_config['serialized_objects_dir'])
+            
+            # consolidated serialized_objects folder at artifact root
+            serialized_objects_dir = os.path.join(artifact_dir, artifact_config['serialized_objects_dir'])
 
             response = DataValidationConfig(
                 order_csv_file=order_csv_file,
@@ -61,5 +64,31 @@ class AppConfiguration:
             logging.info(f"Data Validation Config: {response}")
             return response
 
+        except Exception as e:
+            raise AppException(e, sys) from e
+    def get_data_transformation_config(self) -> DataTransformationConfig:
+        try:
+            data_transformation_config = self.config_info['data_transformation_config']
+            data_validation_config = self.config_info['data_validation_config']
+            artifact_dir = self.config_info['artifact_config']['artifact_dir']
+            dataset_dir = self.config_info['data_ingestion_config']['dataset_dir']
+
+            # Path to clean data from validation step
+            clean_data_dir = os.path.join(artifact_dir, dataset_dir, data_validation_config['clean_data_dir'])
+            clean_data_file_path = os.path.join(clean_data_dir, data_transformation_config['clean_data_file_path'])
+            
+            # Path for transformed data
+            transformed_data_dir = os.path.join(artifact_dir, dataset_dir, data_transformation_config['transformed_data_dir'])
+            
+            # Path for models
+            model_dir = os.path.join(artifact_dir, data_transformation_config['model_dir'])
+
+            response = DataTransformationConfig(
+                clean_data_file_path=clean_data_file_path,
+                transformed_data_dir=transformed_data_dir,
+                model_dir=model_dir
+            )
+            logging.info(f"Data Transformation Config: {response}")
+            return response
         except Exception as e:
             raise AppException(e, sys) from e
