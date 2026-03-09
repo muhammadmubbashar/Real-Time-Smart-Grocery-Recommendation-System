@@ -23,3 +23,9 @@ data_transformation_config:
   transformed_data_dir: "transformed_data"
   model_dir: "models"
 
+model_trainer_config:
+  transformed_data_file_path: "transformed_data.pkl"
+  model_dir: "models"
+  recommendations_dir: "recommendations"
+
+

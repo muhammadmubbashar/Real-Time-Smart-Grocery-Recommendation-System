@@ -3,7 +3,7 @@ import sys
 from Real_Time_Smart_Grocery_Recommendation_System.logger.logger import logging
 from Real_Time_Smart_Grocery_Recommendation_System.exception.exxception_handler import AppException
 from Real_Time_Smart_Grocery_Recommendation_System.utils.utils import read_yaml_file
-from Real_Time_Smart_Grocery_Recommendation_System.entity.config_entity import DataIngestionConfig, DataValidationConfig, DataTransformationConfig
+from Real_Time_Smart_Grocery_Recommendation_System.entity.config_entity import DataIngestionConfig, DataValidationConfig, DataTransformationConfig, ModelTrainerConfig
 from Real_Time_Smart_Grocery_Recommendation_System.constants import *
 
 class AppConfiguration:
@@ -89,6 +89,39 @@ class AppConfiguration:
                 model_dir=model_dir
             )
             logging.info(f"Data Transformation Config: {response}")
+            return response
+        except Exception as e:
+            raise AppException(e, sys) from e
+
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
+        try:
+            model_trainer_config = self.config_info['model_trainer_config']
+            artifact_config = self.config_info['artifact_config']
+            artifact_dir = artifact_config['artifact_dir']
+            serialized_objects_dir = os.path.join(artifact_dir, artifact_config['serialized_objects_dir'])
+
+            # Path to transformed data pickle (from serialized_objects)
+            transformed_data_file_path = os.path.join(
+                serialized_objects_dir,
+                model_trainer_config['transformed_data_file_path']
+            )
+
+            # Path for saving trained models
+            model_dir = os.path.join(artifact_dir, model_trainer_config['model_dir'])
+
+            # Path for recommendations
+            recommendations_dir = os.path.join(
+                artifact_dir,
+                model_trainer_config['recommendations_dir']
+            )
+
+            response = ModelTrainerConfig(
+                transformed_data_file_path=transformed_data_file_path,
+                model_dir=model_dir,
+                recommendations_dir=recommendations_dir
+            )
+
+            logging.info(f"Model Trainer Config: {response}")
             return response
         except Exception as e:
             raise AppException(e, sys) from e
